@@ -10,6 +10,7 @@ exports.getAll = async (req, res) => {
     return res.status(200).json({ msg: 'OK', users: await User.findAll()})
 }
 
+// Méthode pour créer à jour un utilisateur
 exports.create = async (req, res) => {
     // get body content of request
     const { firstName, lastName, email, password, pseudo } = req.body
@@ -43,6 +44,7 @@ exports.findOne = async (req, res) => {
     }
 }
 
+// Méthode pour mettre à jour un utilisateur
 exports.update = async (req, res) => {
     try {
         if (!req.params.uuid) return res.status(400).json({ msg: 'BAD REQUEST PARAMS IS REQUIRED'})
@@ -65,6 +67,7 @@ exports.update = async (req, res) => {
 }
 
 
+// Méthode pour supprimer à jour un utilisateur
 exports.delete = async (req, res) => {
     if (!req.params.uuid) return res.status(400).json({ msg: 'BAD REQUEST PARAMS IS REQUIRED'})
     const { uuid } = req.params

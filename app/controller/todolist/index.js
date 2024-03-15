@@ -1,8 +1,10 @@
 const Todolist = require('../../models/todolist');
 const config = require('../../config/config');
 
+// Méthode pour créer un nouvel article
 exports.create = async (req, res) => {
   try {
+    // Vérifier si l'utilisateur est connecté
     if (!req.user) {
       return res.status(401).json({ message: 'Vous devez être connecté pour créer une Todolist.' });
   }
@@ -24,8 +26,10 @@ exports.create = async (req, res) => {
 };
 
 
+// Méthode pour mettre à jour un article
 exports.update = async (req, res) => {
     try {
+      // Vérifier si l'utilisateur est connecté
         if (!req.user) {
             return res.status(401).json({ message: 'Vous devez être connecté pour mettre à jour un todolist.' });
         }
@@ -35,7 +39,7 @@ exports.update = async (req, res) => {
         if (!todolist) {
             return res.status(404).json({ message: 'Todolist non trouvé.' });
         }
-
+        // Vérifier si l'utilisateur est l'auteur de la todolist
         if (todolist.userId !== req.user.id) {
             return res.status(403).json({ message: 'Vous n\'êtes pas autorisé à mettre à jour cet todolist.' });
         }
@@ -49,9 +53,10 @@ exports.update = async (req, res) => {
     }
 };
 
-
+// Méthode pour supprimer un article
 exports.delete = async (req, res) => {
     try {
+      // Vérifier si l'utilisateur est connecté
         if (!req.user) {
             return res.status(401).json({ message: 'Vous devez être connecté pour supprimer un todolist.' });
         }
@@ -60,6 +65,7 @@ exports.delete = async (req, res) => {
         if (!todolist) {
             return res.status(404).json({ message: 'Todolist non trouvé.' });
         }
+        // Vérifier si l'utilisateur est l'auteur de la todolist
         if (todolist.userId !== req.user.id) {
             return res.status(403).json({ message: 'Vous n\'êtes pas autorisé à supprimer cet todolist.' });
         }
